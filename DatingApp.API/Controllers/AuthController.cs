@@ -45,6 +45,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> Login(UserForLoginDto dto)
         {
 
+            // throw new Exception ("Self thrown Exception from Auth Controller");
             var userFromRepo = await _repo.Login(dto.Username.ToLower(), dto.Password);
 
             #region forge token
