@@ -51,7 +51,7 @@ namespace DatingApp.API.Controllers
             #region forge token
 
             if (userFromRepo == null)
-                return Unauthorized();
+                return Unauthorized("Username/Password is wrong");
 
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),

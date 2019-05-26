@@ -8,10 +8,18 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError(error => {
+                
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
                       //  console.error(error.statusText);
-                        return throwError(error.statusText);
+                      var errortext = "";
+                    errortext = (error.error == null) ? error.statusText : error.statusText+":"+error.error;
+                      /* if (error.error == null){
+                        errortext = error.statusText;
+                      }else{
+                        errortext = error.statusText+error.error;
+                      } */
+                        return throwError(errortext);
                     }
                     const applicationError = error.headers.get('Application-Error');
                     if (applicationError) {
